@@ -28,9 +28,19 @@ public class VendeurDAO {
 
     }
 
-    public VendeurEntity find(String nom, String prenom) {
+    public VendeurEntity find(String codeVendeur, String password) {
 
         VendeurEntity vendeur = new VendeurEntity();
+        this.em.getTransaction().begin();
+        Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.codeVendeur = :code", VendeurEntity.class).setParameter("code", codeVendeur);
+
+        try {
+            vendeur = (VendeurEntity) q.getSingleResult();
+        } catch (NoResultException e) {
+
+        }
+
+        this.em.getTransaction().commit();
 
         return vendeur;
 

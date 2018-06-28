@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "vendeur", schema = "vide_dressing", catalog = "")
 public class VendeurEntity {
+    private int id;
     private String codeVendeur;
     private String password;
     private String nom;
@@ -13,6 +14,16 @@ public class VendeurEntity {
     private Integer organisateur;
 
     @Id
+    @Column(name = "id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Basic
     @Column(name = "code_vendeur")
     public String getCodeVendeur() {
         return codeVendeur;
@@ -67,7 +78,8 @@ public class VendeurEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VendeurEntity that = (VendeurEntity) o;
-        return Objects.equals(codeVendeur, that.codeVendeur) &&
+        return id == that.id &&
+                Objects.equals(codeVendeur, that.codeVendeur) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(nom, that.nom) &&
                 Objects.equals(prenom, that.prenom) &&
@@ -77,6 +89,6 @@ public class VendeurEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(codeVendeur, password, nom, prenom, organisateur);
+        return Objects.hash(id, codeVendeur, password, nom, prenom, organisateur);
     }
 }

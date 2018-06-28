@@ -22,13 +22,31 @@ public class IndexServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         VendeurDAO vendeurDAO = new VendeurDAO();
+        VendeurEntity vendeur = null;
 
-        String prenom = request.getParameter("prenom");
-        String nom = request.getParameter("nom");
+        if (request.getParameter("signup") != null) {
+            String prenom = request.getParameter("prenom");
+            String nom = request.getParameter("nom");
+            vendeur = vendeurDAO.create(prenom, nom);
+        }
 
-        VendeurEntity vendeur = vendeurDAO.create(prenom, nom);
-        session.setAttribute("vendeur", vendeur);
-        response.sendRedirect("/index");
+        if (request.getParameter("login") != null) {
+            String codeVendeur = request.getParameter("code_vendeur");
+            String password = request.getParameter("password");
+            vendeur = vendeurDAO.find(codeVendeur, password);
+            System.out.println(vendeur.getCodeVendeur());
+        }
+
+        if (vendeur.getCodeVendeur() != null) {
+            session.setAttribute("vendeur", vendeur);
+        } else {
+            request.setAttribute("danger", "Cet utilisateur est introuvable");
+            System.out.println(request.getAttribute("danger"));
+        }
+
+//        response.sendRedirect("/index");
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
