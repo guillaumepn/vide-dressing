@@ -21,11 +21,10 @@
           </div>
       </div>
 
-
       <div class="row">
           <c:if test="${danger != null}">
               <div class="alert alert-danger" role="alert">
-                      ${danger}
+                  ${danger}
               </div>
           </c:if>
       </div>

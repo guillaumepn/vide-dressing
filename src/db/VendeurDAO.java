@@ -32,7 +32,7 @@ public class VendeurDAO {
 
         VendeurEntity vendeur = new VendeurEntity();
         this.em.getTransaction().begin();
-        Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.codeVendeur = :code", VendeurEntity.class).setParameter("code", codeVendeur);
+        Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.codeVendeur = :code AND v.password = :pass", VendeurEntity.class).setParameter("code", codeVendeur).setParameter("pass", password);
 
         try {
             vendeur = (VendeurEntity) q.getSingleResult();
