@@ -47,7 +47,6 @@ public class Db {
                 p.setString(i+1, (String) params.get(i));
                 i++;
             }
-
             p.execute();
         } catch (SQLException e) {
 

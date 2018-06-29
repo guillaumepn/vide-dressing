@@ -10,7 +10,7 @@
             <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/vide_dressing?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
             <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="eclipselink.jdbc.user" value="root"/>
-            <property name="eclipselink.jdbc.password" value="root"/>
+            <property name="eclipselink.jdbc.password" value="rootmysql"/>
         </properties>
     </persistence-unit>
 </persistence>

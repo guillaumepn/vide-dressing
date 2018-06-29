@@ -88,7 +88,6 @@ public class VendeurEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, codeVendeur, password, nom, prenom, organisateur);
     }
 }
