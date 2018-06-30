@@ -14,6 +14,7 @@ public class VendeurEntity {
     private String nom;
     private String prenom;
     private Integer organisateur;
+    private Integer blocked;
 
     @Id
     @Column(name = "id")
@@ -75,12 +76,21 @@ public class VendeurEntity {
         this.organisateur = organisateur;
     }
 
-
     public Boolean isOrga(){
         if(organisateur.equals(1)){
             return true;
         }
         return false;
+    }
+
+    @Basic
+    @Column(name = "blocked")
+    public Integer getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Integer blocked) {
+        this.blocked = blocked;
     }
 
     @Override

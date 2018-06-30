@@ -36,7 +36,16 @@
                     <tr>
                         <td>${vendeur.prenom}</td>
                         <td>${vendeur.nom}</td>
-                        <td>blocked</td>
+                        <form action="/admin" method="post" >
+                            <td>
+                            <c:if test="${vendeur.blocked == '0'}">
+                                <button type="submit" name="block" value="${vendeur.codeVendeur}" class="btn btn-danger">Bannir</button>
+                            </c:if>
+                            <c:if test="${vendeur.blocked == '1'}">
+                                <button type="submit" name="unblock" value="${vendeur.codeVendeur}" class="btn btn-success">Amnisiter</button>
+                            </c:if>
+                            </td>
+                        </form>
                     </tr>
                 </c:forEach>
                 </tbody>

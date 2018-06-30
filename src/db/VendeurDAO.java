@@ -42,6 +42,19 @@ public class VendeurDAO {
         return vendeur;
     }
 
+    public VendeurEntity findByCode(String codeVendeur) {
+        VendeurEntity vendeur = new VendeurEntity();
+        this.em.getTransaction().begin();
+        Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.codeVendeur = :code", VendeurEntity.class).setParameter("code", codeVendeur);
+        try {
+            vendeur = (VendeurEntity) q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+        this.em.getTransaction().commit();
+        return vendeur;
+    }
+
     public List<VendeurEntity> all(){
         List<VendeurEntity> ListOfVendeur = new ArrayList<VendeurEntity>();
         this.em.getTransaction().begin();
@@ -54,4 +67,29 @@ public class VendeurDAO {
         return ListOfVendeur;
     }
 
+    public void block(String code){
+        try {
+            VendeurEntity vendeur = new VendeurEntity();
+            vendeur = this.findByCode(code);
+            this.em.getTransaction().begin();
+            vendeur.setBlocked(1);
+            em.getTransaction().commit();
+            System.out.println("Blocked");
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void unblock(String code){
+        try {
+            VendeurEntity vendeur = new VendeurEntity();
+            vendeur = this.findByCode(code);
+            this.em.getTransaction().begin();
+            vendeur.setBlocked(0);
+            em.getTransaction().commit();
+            System.out.println("Unblocked");
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

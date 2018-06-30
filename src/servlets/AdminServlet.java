@@ -36,4 +36,18 @@ public class AdminServlet extends HttpServlet{
 
         this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        VendeurDAO vendeurDAO = new VendeurDAO();
+        VendeurEntity vendeur = null;
+
+        if (request.getParameter("block") != null) {
+            vendeurDAO.block(request.getParameter("block"));
+        } else if (request.getParameter("unblock") != null) {
+            vendeurDAO.unblock(request.getParameter("unblock"));
+        }
+
+        response.sendRedirect("/admin");
+    }
 }
