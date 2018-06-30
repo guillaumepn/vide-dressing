@@ -12,7 +12,7 @@
     <%@include file="head.jsp"%>
 </head>
 <body>
-
+<%@include file="navbar.jsp"%>
 <div class="container">
 
     <div class="row">
