@@ -219,4 +219,12 @@ public class ArticleDAO {
 
     }
 
+    public void remove(String id){
+        ArticleEntity article = new ArticleEntity();
+        article = this.findOne(id);
+        em.getTransaction().begin();
+        em.remove(article);
+        em.getTransaction().commit();
+    }
+
 }

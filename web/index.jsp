@@ -60,6 +60,7 @@
                                             <th scope="col">Voir</th>
                                             <th scope="col">Editer</th>
                                             <th scope="col">Statut</th>
+                                            <th scope="col">Retirer</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -86,6 +87,9 @@
                                                             <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-danger" href="delete-article?id=${article.codeArticle}">Retirer</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
