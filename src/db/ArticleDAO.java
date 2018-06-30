@@ -183,6 +183,24 @@ public class ArticleDAO {
         return article;
     }
 
+    public ArticleEntity edit(String codeArticle, int prix, String taille, String description) {
+        ArticleEntity article = null;
+        try {
+            article = findOne(codeArticle);
+            article.setPrix(prix);
+            article.setTaille(taille);
+            article.setDescription(description);
+
+            this.em.getTransaction().begin();
+            this.em.persist(article);
+            this.em.getTransaction().commit();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return article;
+    }
+
     public ArticleEntity findOne(String codeArticle) {
 
         ArticleEntity article = new ArticleEntity();
