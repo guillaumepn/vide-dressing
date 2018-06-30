@@ -44,7 +44,9 @@ public class IndexServlet extends HttpServlet {
         if (vendeur != null) {
             if (vendeur.getCodeVendeur() != null) {
                 session.setAttribute("vendeur", vendeur);
-                System.out.println(vendeur.isOrga());
+
+                String totalVentes = totalVentes(vendeur.getCodeVendeur());
+                request.setAttribute("total", totalVentes);
             } else {
                 request.setAttribute("danger", "Cet utilisateur est introuvable");
             }
@@ -67,6 +69,8 @@ public class IndexServlet extends HttpServlet {
             articles = articleDAO.find(vendeur.getCodeVendeur());
 
             request.setAttribute("vendeur", vendeur);
+            String totalVentes = totalVentes(vendeur.getCodeVendeur());
+            request.setAttribute("total", totalVentes);
 
             if (!articles.isEmpty()) {
                 request.setAttribute("articles", articles);
@@ -75,5 +79,23 @@ public class IndexServlet extends HttpServlet {
 
 
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    private String totalVentes(String codeVendeur) {
+        int total = 0;
+
+        ArticleDAO articleDAO = new ArticleDAO();
+
+        List<ArticleEntity> articles = articleDAO.find(codeVendeur);
+
+        if (articles != null) {
+            for (ArticleEntity article : articles) {
+                if (article.getVendu() == 1) {
+                    total += article.getPrix();
+                }
+            }
+        }
+
+        return String.valueOf(total);
     }
 }

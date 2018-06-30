@@ -168,6 +168,21 @@ public class ArticleDAO {
 
     }
 
+    public ArticleEntity buy(String codeArticle) {
+        ArticleEntity article = null;
+        try {
+            article = findOne(codeArticle);
+            article = this.findOne(codeArticle);
+            this.em.getTransaction().begin();
+            article.setVendu(1);
+            em.getTransaction().commit();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return article;
+    }
+
     public ArticleEntity findOne(String codeArticle) {
 
         ArticleEntity article = new ArticleEntity();
@@ -175,7 +190,7 @@ public class ArticleDAO {
         Query q = this.em.createQuery("SELECT v FROM ArticleEntity v WHERE v.codeArticle = :code", ArticleEntity.class).setParameter("code", codeArticle);
 
         try {
-            article = (ArticleEntity) q.getResultList();
+            article = (ArticleEntity) q.getSingleResult();
         } catch (NoResultException e) {
 
         }

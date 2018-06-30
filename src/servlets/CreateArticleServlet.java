@@ -19,11 +19,7 @@ public class CreateArticleServlet extends HttpServlet {
         ArticleDAO articleDAO = new ArticleDAO();
         ArticleEntity article = null;
 
-        System.out.println(session.getAttribute("vendeur"));
-        System.out.println(request.getParameter("submit-article"));
-
         if (session.getAttribute("vendeur") != null && request.getParameter("submit-article") != null) {
-            System.out.println("in condition");
             VendeurEntity vendeur = (VendeurEntity) session.getAttribute("vendeur");
             String codeVendeur = vendeur.getCodeVendeur();
             String taille = request.getParameter("taille");
@@ -32,8 +28,6 @@ public class CreateArticleServlet extends HttpServlet {
 
             article = articleDAO.create(codeVendeur, prix, taille, description);
         }
-
-        System.out.println(article);
 
         if (article != null) {
             request.setAttribute("success", "Votre article a bien été ajouté.");

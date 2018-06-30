@@ -1,4 +1,4 @@
-<%--
+<%@ page import="ENTITIES.ArticleEntity" %><%--
   Created by IntelliJ IDEA.
   User: guillaume
   Date: 28/06/18
@@ -7,96 +7,103 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Vide-Dressing</title>
-      <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <%@include file="head.jsp"%>
+
   </head>
-  <body>
+<body>
   <%@include file="navbar.jsp"%>
-  <div class="container">
-      <div class="row">
-          <c:if test="${!empty danger}">
-              <div class="alert alert-danger" role="alert">
-                      ${danger}
-              </div>
-          </c:if>
-          <c:if test="${!empty succes}">
-              <div class="alert alert-succes" role="alert">
-                      ${succes}
-              </div>
-          </c:if>
-      </div>
-      <div class="row">
-          <div class="card mt-5 w-100">
-              <div class="card-header">
-                  <c:choose>
-                      <c:when test="${vendeur == null}">
-                          <h5 class="card-title">S'inscrire en tant que vendeur</h5>
-                      </c:when>
-                      <c:when test="${!empty vendeur}">
-                          <h5 class="card-title">Liste de vos articles—</h5>
-                      </c:when>
-                  </c:choose>
-              </div>
-              <div class="card-body">
-                  <c:choose>
-                      <c:when test="${vendeur == null}">
-                          <div class="card-text">
-                              <form action="/index" method="post">
-                                  <div class="form-group">
-                                      <label for="prenom">Prénom</label>
-                                      <input type="text" id="prenom" name="prenom" class="form-control" required>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="nom">Nom</label>
-                                      <input type="text" id="nom" name="nom" class="form-control" required>
-                                  </div>
-                                  <input type="submit" name="signup" class="btn btn-primary" value="S'inscrire">
-                              </form>
-                          </div>
-                      </c:when>
+<div class="container">
+    <div class="row">
+        <div class="card mt-5 w-100">
+            <div class="card-header">
+                <c:choose>
+                    <c:when test="${empty vendeur}">
+                        <h5 class="card-title">S'inscrire en tant que vendeur</h5>
+                    </c:when>
+                    <c:otherwise>
+                        <h5 class="card-title">Liste de vos articles</h5>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="card-body">
+                <c:choose>
+                    <c:when test="${empty vendeur}">
+                        <div class="card-text">
+                            <form action="/index" method="post">
+                                <div class="form-group">
+                                    <label for="prenom">Prénom</label>
+                                    <input type="text" id="prenom" name="prenom" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Nom</label>
+                                    <input type="text" id="nom" name="nom" class="form-control" required>
+                                </div>
+                                <input type="submit" name="signup" class="btn btn-primary" value="S'inscrire">
+                            </form>
+                        </div>
+                    </c:when>
 
-                      <c:when test="${!empty vendeur}">
-                          <div class="card-text">
-                              <div class="col">
-                                  <c:if test="${!empty articles}">
-                                      <table class="table">
-                                          <thead>
-                                          <tr>
-                                              <th scope="col">Code Article</th>
-                                              <th scope="col">Prix</th>
-                                              <th scope="col">Taille</th>
-                                              <th scope="col">Description</th>
-                                          </tr>
-                                          </thead>
-                                          <tbody>
-                                          <c:forEach items="${articles}" var="article">
-                                              <tr>
-                                                  <td class="code-article">${article.codeArticle}</td>
-                                                  <td class="prix-article">${article.prix} €</td>
-                                                  <td class="taille-article">${article.taille}</td>
-                                                  <td class="description-article">${article.description}</td>
-                                              </tr>
-                                          </c:forEach>
-                                          </tbody>
-                                      </table>
-                                  </c:if>
-                                  <c:if test="${empty articles}">
-                                      Aucun article
-                                  </c:if>
-                                  <div>
-                                      <a href="create-article" class="btn btn-outline-primary">Ajouter un nouvel article</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </c:when>
-                  </c:choose>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <c:otherwise>
+                        <div class="card-text">
+                            <div class="col">
+                                <c:if test="${!empty articles}">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Code Article</th>
+                                            <th scope="col">Prix</th>
+                                            <th scope="col">Taille</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Voir</th>
+                                            <th scope="col">Statut</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${articles}" var="article">
+                                            <tr>
+                                                <td class="code-article">${article.codeArticle}</td>
+                                                <td class="prix-article">${article.prix} €</td>
+                                                <td class="taille-article">${article.taille}</td>
+                                                <td class="description-article">${article.description}</td>
+                                                <td><a href="article?id=${article.codeArticle}" class="btn btn-primary">Voir la fiche</a></td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${article.vendu == 1}">
+                                                            <button class="btn btn-danger" disabled>Vendu</button>
+                                                        </c:when>
 
-  <%@include file="footer.jsp"%>
-  </body>
+                                                        <c:otherwise>
+                                                            <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </c:if>
+                                <c:if test="${empty articles}">
+                                    Aucun article
+                                </c:if>
+                                <div>
+                                    <a href="create-article" class="btn btn-outline-primary">Ajouter un nouvel article</a>
+                                </div>
+
+                                <div class="mt-3">
+                                    Total de vos ventes : <c:if test="${!empty total}">${total}</c:if> €
+                                </div>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%@include file="footer.jsp"%>
+</body>
 </html>
