@@ -19,6 +19,7 @@ public class VendeurDAO {
         vendeur.setNom(nom);
         vendeur.setPrenom(prenom);
         vendeur.setOrganisateur(0);
+        vendeur.setBlocked(0);
 
         this.em.getTransaction().begin();
         this.em.persist(vendeur);
@@ -44,6 +45,19 @@ public class VendeurDAO {
         VendeurEntity vendeur = new VendeurEntity();
         this.em.getTransaction().begin();
         Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.codeVendeur = :code", VendeurEntity.class).setParameter("code", codeVendeur);
+        try {
+            vendeur = (VendeurEntity) q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+        this.em.getTransaction().commit();
+        return vendeur;
+    }
+
+    public VendeurEntity findById(Integer idVender) {
+        VendeurEntity vendeur = new VendeurEntity();
+        this.em.getTransaction().begin();
+        Query q = this.em.createQuery("SELECT v FROM VendeurEntity v WHERE v.id = :id", VendeurEntity.class).setParameter("id", idVender);
         try {
             vendeur = (VendeurEntity) q.getSingleResult();
         } catch (NoResultException e) {
@@ -86,6 +100,16 @@ public class VendeurDAO {
             vendeur.setBlocked(0);
             em.getTransaction().commit();
             System.out.println("Unblocked");
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void changePassword(VendeurEntity vendeur, String password){
+        try {
+            this.em.getTransaction().begin();
+            vendeur.setPassword(password);
+            em.getTransaction().commit();
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
         }

@@ -21,8 +21,6 @@ import java.util.List;
 public class AdminServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO CHECK IF User is Orga + Redirect else
-
         HttpSession session = request.getSession();
         VendeurDAO vendeurDAO = new VendeurDAO();
         VendeurEntity vendeur = null;
@@ -30,6 +28,15 @@ public class AdminServlet extends HttpServlet{
 
         if (session.getAttribute("vendeur") != null) {
             vendeur = (VendeurEntity) session.getAttribute("vendeur");
+            if(!vendeur.isOrga()){
+                request.setAttribute("danger", "Vous n'avez pas le droit d'accéder ici !");
+                response.sendRedirect("/");
+                return;
+            }
+        } else {
+            request.setAttribute("danger", "Vous devez être connecté !");
+            response.sendRedirect("/");
+            return;
         }
         request.setAttribute("vendeur", vendeur);
 

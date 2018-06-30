@@ -24,13 +24,15 @@
                 </form>
             </c:when>
             <c:otherwise>
-
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ${vendeur.prenom}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <c:if test="${vendeur.organisateur == 1}">
+                                <a class="dropdown-item" href="/admin">Admin</a>
+                            </c:if>
                             <a class="dropdown-item" href="/logout">Déconnexion</a>
                         </div>
                     </li>

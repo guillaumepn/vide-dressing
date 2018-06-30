@@ -106,6 +106,13 @@ public class VendeurEntity {
                 Objects.equals(organisateur, that.organisateur);
     }
 
+    public Boolean isActive(){
+        if(!password.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, codeVendeur, password, nom, prenom, organisateur);

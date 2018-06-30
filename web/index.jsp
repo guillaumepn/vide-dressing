@@ -11,9 +11,10 @@
     <title>Vide-Dressing</title>
     <meta charset="UTF-8">
     <%@include file="head.jsp"%>
-</head>
+
+  </head>
 <body>
-<%@include file="navbar.jsp"%>
+  <%@include file="navbar.jsp"%>
 <div class="container">
     <div class="row">
         <div class="card mt-5 w-100">
@@ -100,24 +101,6 @@
                 </c:choose>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <c:if test="${!empty danger}">
-            <div class="alert alert-danger" role="alert">
-                    ${danger}
-            </div>
-        </c:if>
-
-        <c:if test="${!empty succes}">
-            <div class="alert alert-succes" role="alert">
-                    ${succes}
-            </div>
-        </c:if>
-    </div>
-
-    <div class="row">
-
     </div>
 </div>
 
