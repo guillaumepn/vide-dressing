@@ -24,6 +24,7 @@
             </c:when>
             <c:otherwise>
                 <ul class="navbar-nav">
+                        ${vendeur.prenom}
                     <li class="nav-item active">
                         <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
                     </li>
