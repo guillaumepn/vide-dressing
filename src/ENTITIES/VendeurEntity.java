@@ -1,5 +1,7 @@
 package ENTITIES;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -67,6 +69,13 @@ public class VendeurEntity {
     @Column(name = "organisateur")
     public Integer getOrganisateur() {
         return organisateur;
+    }
+
+    public Boolean isOrga(){
+        if(organisateur.equals(1)){
+            return true;
+        }
+        return false;
     }
 
     public void setOrganisateur(Integer organisateur) {

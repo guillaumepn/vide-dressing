@@ -34,11 +34,11 @@ public class IndexServlet extends HttpServlet {
             String codeVendeur = request.getParameter("code_vendeur");
             String password = request.getParameter("password");
             vendeur = vendeurDAO.find(codeVendeur, password);
-            System.out.println(vendeur.getCodeVendeur());
         }
 
         if (vendeur.getCodeVendeur() != null) {
             session.setAttribute("vendeur", vendeur);
+            System.out.println(vendeur.isOrga());
         } else {
             request.setAttribute("danger", "Cet utilisateur est introuvable");
             System.out.println(request.getAttribute("danger"));
