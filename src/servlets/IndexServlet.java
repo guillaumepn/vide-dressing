@@ -43,14 +43,14 @@ public class IndexServlet extends HttpServlet {
 
         if (vendeur.getCodeVendeur() != null) {
             session.setAttribute("vendeur", vendeur);
+            System.out.println(vendeur.isOrga());
         } else {
             request.setAttribute("danger", "Cet utilisateur est introuvable");
         }
-
+      
         if (!articles.isEmpty()) {
             request.setAttribute("articles", articles);
         }
-
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
