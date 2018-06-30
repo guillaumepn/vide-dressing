@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VendeurDAO {
 
@@ -39,6 +40,18 @@ public class VendeurDAO {
         }
         this.em.getTransaction().commit();
         return vendeur;
+    }
+
+    public List<VendeurEntity> all(){
+        List<VendeurEntity> ListOfVendeur = new ArrayList<VendeurEntity>();
+        this.em.getTransaction().begin();
+        try {
+            ListOfVendeur = em.createQuery("SELECT e FROM VendeurEntity e").getResultList();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(ListOfVendeur);
+        return ListOfVendeur;
     }
 
 }

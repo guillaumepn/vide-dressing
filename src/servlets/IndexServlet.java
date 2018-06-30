@@ -44,8 +44,8 @@ public class IndexServlet extends HttpServlet {
             System.out.println(request.getAttribute("danger"));
         }
 
-//        response.sendRedirect("/index");
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        response.sendRedirect("/admin");
+        //this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
     }
 

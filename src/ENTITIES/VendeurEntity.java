@@ -71,15 +71,16 @@ public class VendeurEntity {
         return organisateur;
     }
 
+    public void setOrganisateur(Integer organisateur) {
+        this.organisateur = organisateur;
+    }
+
+
     public Boolean isOrga(){
         if(organisateur.equals(1)){
             return true;
         }
         return false;
-    }
-
-    public void setOrganisateur(Integer organisateur) {
-        this.organisateur = organisateur;
     }
 
     @Override
