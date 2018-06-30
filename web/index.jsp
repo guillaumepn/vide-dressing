@@ -56,26 +56,6 @@
                           <input type="submit" name="signup" class="btn btn-primary" value="S'inscrire">
                       </form>
                   </div>
-
-                      <div class="col">
-                          <h2>Se connecter</h2>
-
-                          <form action="/index" method="post">
-
-                              <div class="form-group">
-                                  <label for="code_vendeur">Code Vendeur</label>
-                                  <input type="text" id="code_vendeur" name="code_vendeur" class="form-control" required>
-                              </div>
-
-                              <div class="form-group">
-                                  <label for="password">Password</label>
-                                  <input type="text" id="password" name="password" class="form-control" required>
-                              </div>
-
-                              <input type="submit" name="login" class="btn btn-primary" value="Se connecter">
-                          </form>
-                      </div>
-
                   </c:when>
 
                   <c:when test="${!empty vendeur}">

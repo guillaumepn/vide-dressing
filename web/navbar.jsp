@@ -16,9 +16,10 @@
         </ul>
         <c:choose>
             <c:when test="${empty vendeur}">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <form action="/index" method="post" class="form-inline my-2 my-lg-0">
+                    <input type="text" class="form-control mr-sm-2" name="code_vendeur"  placeholder="Code Vendeur" required>
+                    <input type="text" class="form-control mr-sm-2" name="password"  placeholder="Password" required>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="login" value="Se connecter">Connection</button>
                 </form>
             </c:when>
             <c:otherwise>
