@@ -22,8 +22,6 @@ public class ArticleServlet extends HttpServlet {
         ArticleDAO articleDAO = new ArticleDAO();
         ArticleEntity article = null;
 
-        System.out.println(id);
-
         if (id != null) {
             article = articleDAO.findOne(id);
 

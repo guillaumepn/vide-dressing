@@ -57,6 +57,7 @@
                                             <th scope="col">Taille</th>
                                             <th scope="col">Description</th>
                                             <th scope="col">Voir</th>
+                                            <th scope="col">Editer</th>
                                             <th scope="col">Statut</th>
                                         </tr>
                                         </thead>
@@ -67,7 +68,13 @@
                                                 <td class="prix-article">${article.prix} €</td>
                                                 <td class="taille-article">${article.taille}</td>
                                                 <td class="description-article">${article.description}</td>
-                                                <td><a href="article?id=${article.codeArticle}" class="btn btn-primary">Voir la fiche</a></td>
+                                                <td>
+                                                    <a href="article?id=${article.codeArticle}" class="btn btn-primary">Voir la fiche</a>
+                                                </td>
+
+                                                <td>
+                                                    <a href="edit-article?id=${article.codeArticle}" class="btn btn-outline-primary">Editer</a>
+                                                </td>
                                                 <td>
                                                     <c:choose>
                                                         <c:when test="${article.vendu == 1}">
