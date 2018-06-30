@@ -18,12 +18,18 @@
       <div class="row">
           <div class="card mt-5 w-100">
               <div class="card-header">
-                  <h1>Vide-Dressing</h1>
+                  <c:choose>
+                      <c:when test="${vendeur == null}">
+                          <h5 class="card-title">S'inscrire en tant que vendeur</h5>
+                      </c:when>
+                      <c:when test="${!empty vendeur}">
+                          <h5 class="card-title">Liste de vos article</h5>
+                      </c:when>
+                  </c:choose>
               </div>
               <div class="card-body">
                   <c:choose>
                       <c:when test="${vendeur == null}">
-                          <h5 class="card-title">S'inscrire en tant que vendeur</h5>
                           <div class="card-text">
                               <form action="/index" method="post">
                                   <div class="form-group">
@@ -40,7 +46,6 @@
                       </c:when>
 
                       <c:when test="${!empty vendeur}">
-                         <h5 class="card-title">Liste de vos article</h5>
                           <div class="card-text">
                               <div class="col">
                                   <c:if test="${!empty articles}">
