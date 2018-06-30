@@ -9,6 +9,7 @@
 <html>
   <head>
     <title>Vide-Dressing</title>
+      <meta charset="UTF-8">
     <%@include file="head.jsp"%>
   </head>
   <body>
@@ -22,9 +23,15 @@
       </div>
 
       <div class="row">
-          <c:if test="${danger != null}">
+          <c:if test="${!empty danger}">
               <div class="alert alert-danger" role="alert">
                   ${danger}
+              </div>
+          </c:if>
+
+          <c:if test="${!empty succes}">
+              <div class="alert alert-succes" role="alert">
+                      ${succes}
               </div>
           </c:if>
       </div>
@@ -72,9 +79,42 @@
 
                   </c:when>
 
-                  <c:when test="${vendeur != null}">
+                  <c:when test="${!empty vendeur}">
                       <div class="col">
-                          Bienvenue ${vendeur.prenom}
+                          <h3>Bienvenue ${vendeur.prenom}</h3>
+
+                          <h5>Liste de vos articles</h5>
+
+                          <c:if test="${!empty articles}">
+                              <table class="table">
+                                  <thead>
+                                  <tr>
+                                      <th scope="col">Code Article</th>
+                                      <th scope="col">Prix</th>
+                                      <th scope="col">Taille</th>
+                                      <th scope="col">Description</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                              <c:forEach items="${articles}" var="article">
+                                  <tr>
+                                      <td class="code-article">${article.codeArticle}</td>
+                                      <td class="prix-article">${article.prix} €</td>
+                                      <td class="taille-article">${article.taille}</td>
+                                      <td class="description-article">${article.description}</td>
+                                  </tr>
+                              </c:forEach>
+                                  </tbody>
+                              </table>
+                          </c:if>
+
+                          <c:if test="${empty articles}">
+                              Aucun article
+                          </c:if>
+
+                          <div>
+                              <a href="create-article" class="btn btn-outline-primary">Ajouter un nouvel article</a>
+                          </div>
                       </div>
                   </c:when>
 
