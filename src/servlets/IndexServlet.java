@@ -1,6 +1,8 @@
 package servlets;
 
+import ENTITIES.ArticleEntity;
 import ENTITIES.VendeurEntity;
+import db.ArticleDAO;
 import db.VendeurDAO;
 
 import javax.naming.Context;
@@ -23,6 +25,8 @@ public class IndexServlet extends HttpServlet {
         HttpSession session = request.getSession();
         VendeurDAO vendeurDAO = new VendeurDAO();
         VendeurEntity vendeur = null;
+        ArticleDAO articleDAO = new ArticleDAO();
+        List<ArticleEntity> articles = null;
 
         if (request.getParameter("signup") != null) {
             String prenom = request.getParameter("prenom");
@@ -34,6 +38,7 @@ public class IndexServlet extends HttpServlet {
             String codeVendeur = request.getParameter("code_vendeur");
             String password = request.getParameter("password");
             vendeur = vendeurDAO.find(codeVendeur, password);
+            articles = articleDAO.find(vendeur.getCodeVendeur());
         }
 
         if (vendeur.getCodeVendeur() != null) {
@@ -41,22 +46,31 @@ public class IndexServlet extends HttpServlet {
             System.out.println(vendeur.isOrga());
         } else {
             request.setAttribute("danger", "Cet utilisateur est introuvable");
-            System.out.println(request.getAttribute("danger"));
         }
-
-        response.sendRedirect("/admin");
-        //this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-
+      
+        if (!articles.isEmpty()) {
+            request.setAttribute("articles", articles);
+        }
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         VendeurEntity vendeur = null;
+        ArticleDAO articleDAO = new ArticleDAO();
+        List<ArticleEntity> articles = null;
+
         if (session.getAttribute("vendeur") != null) {
             vendeur = (VendeurEntity) session.getAttribute("vendeur");
+            articles = articleDAO.find(vendeur.getCodeVendeur());
+
+            request.setAttribute("vendeur", vendeur);
+
+            if (!articles.isEmpty()) {
+                request.setAttribute("articles", articles);
+            }
         }
 
-        request.setAttribute("vendeur", vendeur);
 
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
