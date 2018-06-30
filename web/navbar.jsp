@@ -32,16 +32,11 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <c:if test="${vendeur.organisateur == 1}">
                                 <a class="dropdown-item" href="/admin">Admin</a>
+                                <div class="dropdown-divider"></div>
                             </c:if>
                             <a class="dropdown-item" href="/logout">Déconnexion</a>
                         </div>
                     </li>
-
-                    <c:if test="${vendeur.organisateur == 1}">
-                        <li class="nav-item mr-auto">
-                            <a href="admin" class="btn btn-outline-danger">Administration</a>
-                        </li>
-                    </c:if>
                 </ul>
             </c:otherwise>
         </c:choose>

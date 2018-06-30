@@ -34,6 +34,14 @@
                     <div class="pastille <c:out default="None" escapeXml="true" value="${vendeur.password != null ? 'bg-success' : 'bg-warning'}" />"></div>
                     <input type="password" placeholder="Password" value="${vendeur.password}" name="password">
                 </form>
+                <form action="/admin" method="post" >
+                    <c:if test="${vendeur.blocked == '0'}">
+                        <button type="submit" name="block" value="${vendeur.codeVendeur}" class="btn btn-warning">Bloquer</button>
+                    </c:if>
+                    <c:if test="${vendeur.blocked == '1'}">
+                        <button type="submit" name="unblock" value="${vendeur.codeVendeur}" class="btn btn-success">Débloquer</button>
+                    </c:if>
+                </form>
             </div>
         </div>
     </div>

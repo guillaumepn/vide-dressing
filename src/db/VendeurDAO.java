@@ -75,7 +75,6 @@ public class VendeurDAO {
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(ListOfVendeur);
         return ListOfVendeur;
     }
 
