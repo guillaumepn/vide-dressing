@@ -21,6 +21,8 @@ public class BuyArticleServlet extends HttpServlet {
         ArticleDAO articleDAO = new ArticleDAO();
         ArticleEntity article = null;
 
+
+
         if (id != null) {
             article = articleDAO.buy(id);
 

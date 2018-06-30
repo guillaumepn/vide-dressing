@@ -34,10 +34,9 @@
             <div>
                 <a href="index" class="back badge badge-secondary">Retour à l'accueil</a>
             </div>
-
+            <div class="card">
             <c:choose>
                 <c:when test="${!empty article}">
-                    <div class="card">
                         <div class="card-header">
                             Produit #${article.codeArticle}
                         </div>
@@ -55,7 +54,6 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                    </div>
                  </c:when>
 
                 <c:otherwise>
@@ -64,7 +62,24 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-
+            <c:if test="${!empty commentaires}">
+                <div class="card-body">
+                    <h5>Commentaires : </h5>
+                    <c:forEach items="${ commentaires }" var="commentaire">
+                        <p>${ commentaire.contenu }</p>
+                        <hr>
+                    </c:forEach>
+                </div>
+            </c:if>
+            <c:if test="${vendeur.organisateur == 1 && !empty article}">
+                <div class="card-body">
+                    <form action="/add-comment?id=${article.codeArticle}" method="post">
+                            <textarea name="content" class="form-control"></textarea>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+            </c:if>
+            </div>
         </div>
     </div>
 </div>
