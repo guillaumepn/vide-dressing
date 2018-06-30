@@ -13,9 +13,8 @@
     <%@include file="head.jsp"%>
   </head>
   <body>
-
+  <%@include file="navbar.jsp"%>
   <div class="container">
-
       <div class="row">
           <div class="col">
           <h1>Vide-Dressing</h1>

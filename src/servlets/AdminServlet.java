@@ -21,6 +21,8 @@ import java.util.List;
 public class AdminServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //TODO CHECK IF User is Orga + Redirect else
+
         HttpSession session = request.getSession();
         VendeurDAO vendeurDAO = new VendeurDAO();
         VendeurEntity vendeur = null;

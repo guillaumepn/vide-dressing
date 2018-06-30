@@ -3,8 +3,6 @@ package db;
 import ENTITIES.VendeurEntity;
 
 import javax.persistence.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
