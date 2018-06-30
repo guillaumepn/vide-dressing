@@ -41,14 +41,16 @@ public class IndexServlet extends HttpServlet {
             articles = articleDAO.find(vendeur.getCodeVendeur());
         }
 
-        if (vendeur.getCodeVendeur() != null) {
-            session.setAttribute("vendeur", vendeur);
-            System.out.println(vendeur.isOrga());
-        } else {
-            request.setAttribute("danger", "Cet utilisateur est introuvable");
+        if (vendeur != null) {
+            if (vendeur.getCodeVendeur() != null) {
+                session.setAttribute("vendeur", vendeur);
+                System.out.println(vendeur.isOrga());
+            } else {
+                request.setAttribute("danger", "Cet utilisateur est introuvable");
+            }
         }
-      
-        if (!articles.isEmpty()) {
+
+        if (articles != null && !articles.isEmpty()) {
             request.setAttribute("articles", articles);
         }
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
