@@ -113,6 +113,13 @@ public class VendeurEntity {
         return false;
     }
 
+    public Boolean isBlocked(){
+        if(blocked == 1){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, codeVendeur, password, nom, prenom, organisateur);

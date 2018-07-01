@@ -131,7 +131,7 @@
     </div>
 
     <div class="row">
-        <div class="card mt-5 w-100">
+        <div class="card mt-5 w-100 mb-5">
             <div class="card-header">
                 <h5 class="card-title">Tous les articles</h5>
             </div>

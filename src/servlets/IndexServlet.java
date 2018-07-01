@@ -27,7 +27,6 @@ public class IndexServlet extends HttpServlet {
         VendeurEntity vendeur = null;
         ArticleDAO articleDAO = new ArticleDAO();
         List<ArticleEntity> articles = null;
-
         List<ArticleEntity> allArticles = allArticles();
 
         if (request.getParameter("signup") != null) {
@@ -46,7 +45,6 @@ public class IndexServlet extends HttpServlet {
         if (vendeur != null) {
             if (vendeur.getCodeVendeur() != null) {
                 session.setAttribute("vendeur", vendeur);
-
                 String totalVentes = totalVentes(vendeur.getCodeVendeur());
                 request.setAttribute("total", totalVentes);
             } else {
@@ -61,8 +59,7 @@ public class IndexServlet extends HttpServlet {
         if (!allArticles.isEmpty()) {
             request.setAttribute("allArticles", allArticles);
         }
-
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        response.sendRedirect("/index");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,17 +67,21 @@ public class IndexServlet extends HttpServlet {
         VendeurEntity vendeur = null;
         ArticleDAO articleDAO = new ArticleDAO();
         List<ArticleEntity> articles = null;
-
         List<ArticleEntity> allArticles = allArticles();
-
         if (session.getAttribute("vendeur") != null) {
             vendeur = (VendeurEntity) session.getAttribute("vendeur");
-            articles = articleDAO.find(vendeur.getCodeVendeur());
-
+            if(vendeur.isBlocked() == true){
+                request.setAttribute("danger", "Votre compte a été bloqué, veuillez contacter un organisateur.");
+                this.getServletContext().getRequestDispatcher("/blocked.jsp").forward(request, response);
+                this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
+                return;
+            }
             request.setAttribute("vendeur", vendeur);
+
+
+            articles = articleDAO.find(vendeur.getCodeVendeur());
             String totalVentes = totalVentes(vendeur.getCodeVendeur());
             request.setAttribute("total", totalVentes);
-
             if (!articles.isEmpty()) {
                 request.setAttribute("articles", articles);
             }
@@ -89,8 +90,6 @@ public class IndexServlet extends HttpServlet {
                 request.setAttribute("allArticles", allArticles);
             }
         }
-
-
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
