@@ -50,7 +50,9 @@
                                 </c:when>
 
                                 <c:otherwise>
-                                    <a href="buy-article?id=${article.codeArticle}" class="btn btn-primary">Acheter</a>
+                                    <c:if test="${article.codeVendeur != vendeur.codeVendeur}">
+                                    <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
+                                    </c:if>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -75,7 +77,7 @@
                 <div class="card-body">
                     <form action="/add-comment?id=${article.codeArticle}" method="post">
                             <textarea name="content" class="form-control"></textarea>
-                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                            <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
                     </form>
                 </div>
             </c:if>

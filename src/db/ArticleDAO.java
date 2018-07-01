@@ -154,7 +154,12 @@ public class ArticleDAO {
             }
         };
         this.em.getTransaction().begin();
-        Query q = this.em.createQuery("SELECT v FROM ArticleEntity v WHERE v.codeVendeur = :code", ArticleEntity.class).setParameter("code", codeVendeur);
+        Query q = null;
+        if (codeVendeur != null && !codeVendeur.isEmpty()) {
+            q = this.em.createQuery("SELECT v FROM ArticleEntity v WHERE v.codeVendeur = :code", ArticleEntity.class).setParameter("code", codeVendeur);
+        } else {
+            q = this.em.createQuery("SELECT v FROM ArticleEntity v", ArticleEntity.class);
+        }
 
         try {
             articles = (List<ArticleEntity>) q.getResultList();

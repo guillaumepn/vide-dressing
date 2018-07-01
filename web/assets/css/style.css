@@ -9,3 +9,13 @@
     display: inline-block;
     margin-right: 0.5rem;
 }
+
+h3[data-toggle="collapse"]:hover {
+    cursor: pointer;
+    color: #3c6382;
+}
+
+.first-col {
+    display: flex;
+    align-items: center;
+}

@@ -28,6 +28,8 @@ public class IndexServlet extends HttpServlet {
         ArticleDAO articleDAO = new ArticleDAO();
         List<ArticleEntity> articles = null;
 
+        List<ArticleEntity> allArticles = allArticles();
+
         if (request.getParameter("signup") != null) {
             String prenom = request.getParameter("prenom");
             String nom = request.getParameter("nom");
@@ -55,6 +57,11 @@ public class IndexServlet extends HttpServlet {
         if (articles != null && !articles.isEmpty()) {
             request.setAttribute("articles", articles);
         }
+
+        if (!allArticles.isEmpty()) {
+            request.setAttribute("allArticles", allArticles);
+        }
+
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
@@ -63,6 +70,8 @@ public class IndexServlet extends HttpServlet {
         VendeurEntity vendeur = null;
         ArticleDAO articleDAO = new ArticleDAO();
         List<ArticleEntity> articles = null;
+
+        List<ArticleEntity> allArticles = allArticles();
 
         if (session.getAttribute("vendeur") != null) {
             vendeur = (VendeurEntity) session.getAttribute("vendeur");
@@ -74,6 +83,10 @@ public class IndexServlet extends HttpServlet {
 
             if (!articles.isEmpty()) {
                 request.setAttribute("articles", articles);
+            }
+
+            if (!allArticles.isEmpty()) {
+                request.setAttribute("allArticles", allArticles);
             }
         }
 
@@ -97,5 +110,13 @@ public class IndexServlet extends HttpServlet {
         }
 
         return String.valueOf(total);
+    }
+
+    private List<ArticleEntity> allArticles() {
+        ArticleDAO articleDAO = new ArticleDAO();
+
+        List<ArticleEntity> articles = articleDAO.find("");
+
+        return articles;
     }
 }

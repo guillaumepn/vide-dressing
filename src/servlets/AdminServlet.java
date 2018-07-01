@@ -1,6 +1,8 @@
 package servlets;
 
+import ENTITIES.ArticleEntity;
 import ENTITIES.VendeurEntity;
+import db.ArticleDAO;
 import db.VendeurDAO;
 
 import javax.naming.Context;
@@ -25,6 +27,7 @@ public class AdminServlet extends HttpServlet{
         VendeurDAO vendeurDAO = new VendeurDAO();
         VendeurEntity vendeur = null;
         List<VendeurEntity> vendeurs = new ArrayList<VendeurEntity>();
+        List<ArticleEntity> articles = new ArrayList<ArticleEntity>();
 
         if (session.getAttribute("vendeur") != null) {
             vendeur = (VendeurEntity) session.getAttribute("vendeur");
@@ -43,6 +46,9 @@ public class AdminServlet extends HttpServlet{
         vendeurs = vendeurDAO.all();
         request.setAttribute("vendeurs", vendeurs);
 
+        articles = allArticles();
+        request.setAttribute("articles", articles);
+
         this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
     }
 
@@ -58,5 +64,13 @@ public class AdminServlet extends HttpServlet{
         }
 
         response.sendRedirect("/admin");
+    }
+
+    private List<ArticleEntity> allArticles() {
+        ArticleDAO articleDAO = new ArticleDAO();
+
+        List<ArticleEntity> articles = articleDAO.find("");
+
+        return articles;
     }
 }

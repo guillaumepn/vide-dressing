@@ -12,9 +12,9 @@
     <meta charset="UTF-8">
     <%@include file="head.jsp"%>
 
-  </head>
+</head>
 <body>
-  <%@include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 <div class="container">
     <div class="row">
         <div class="card mt-5 w-100">
@@ -84,7 +84,9 @@
                                                         </c:when>
 
                                                         <c:otherwise>
-                                                            <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
+                                                            <c:if test="${article.codeVendeur != vendeur.codeVendeur}">
+                                                                <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
+                                                            </c:if>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
@@ -113,6 +115,102 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <c:if test="${!empty danger}">
+            <div class="alert alert-danger" role="alert">
+                    ${danger}
+            </div>
+        </c:if>
+
+        <c:if test="${!empty succes}">
+            <div class="alert alert-succes" role="alert">
+                    ${succes}
+            </div>
+        </c:if>
+    </div>
+
+    <div class="row">
+        <div class="card mt-5 w-100">
+            <div class="card-header">
+                <h5 class="card-title">Tous les articles</h5>
+            </div>
+            <div class="card-body">
+                <c:choose>
+                    <c:when test="${!empty vendeur}">
+                        <div class="card-text">
+                            <div class="col">
+                                <c:if test="${!empty allArticles}">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Code Article</th>
+                                            <th scope="col">Prix</th>
+                                            <th scope="col">Taille</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Voir</th>
+                                            <th scope="col">Editer</th>
+                                            <th scope="col">Statut</th>
+                                            <th scope="col">Retirer</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${allArticles}" var="article">
+                                            <tr>
+                                                <td class="code-article">${article.codeArticle}</td>
+                                                <td class="prix-article">${article.prix} €</td>
+                                                <td class="taille-article">${article.taille}</td>
+                                                <td class="description-article">${article.description}</td>
+                                                <td>
+                                                    <a href="article?id=${article.codeArticle}" class="btn btn-primary">Voir la fiche</a>
+                                                </td>
+
+                                                <td>
+                                                    <c:if test="${article.codeVendeur == vendeur.codeVendeur}">
+                                                        <a href="edit-article?id=${article.codeArticle}" class="btn btn-outline-primary">Editer</a>
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${article.vendu == 1}">
+                                                            <button class="btn btn-danger" disabled>Vendu</button>
+                                                        </c:when>
+
+                                                        <c:otherwise>
+                                                            <c:if test="${article.codeVendeur != vendeur.codeVendeur}">
+                                                                <a href="buy-article?id=${article.codeArticle}" class="btn btn-outline-success">Acheter</a>
+                                                            </c:if>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <c:if test="${article.codeVendeur == vendeur.codeVendeur}">
+                                                        <a class="btn btn-danger" href="delete-article?id=${article.codeArticle}">Retirer</a>
+
+                                                    </c:if>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </c:if>
+                                <c:if test="${empty articles}">
+                                    Aucun article
+                                </c:if>
+
+                            </div>
+                        </div>
+                    </c:when>
+
+                    <c:otherwise>
+                        Connectez-vous pour voir les articles.
+                    </c:otherwise>
+
+                </c:choose>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <%@include file="footer.jsp"%>
